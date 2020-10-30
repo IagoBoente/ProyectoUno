@@ -11,6 +11,7 @@ class Main(QtWidgets.QMainWindow):
         colección de datos
         '''
         var.rbtSexo = (var.ui.rbtFem, var.ui.rbtMasc)
+        var.chkpago = (var.ui.chkEfec, var.ui.chkTar, var.ui.chkTrans)
 
     '''
     conexion de eventos con los objetos
@@ -21,6 +22,16 @@ class Main(QtWidgets.QMainWindow):
     var.ui.editDni.editingFinished.connect(clients.Clientes.validoDni)
     for i in var.rbtSexo:
         i.toggled.connect(clients.Clientes.selSexo)
+    for i in var.chkpago:
+        i.stateChanged.connect(clients.Clientes.selPago)
+    var.ui.cmbProv.activated[str].connect(clients.Clientes.selPago())
+
+    '''
+    Llamada a módulos iniciales
+    '''
+
+    events.Eventos.cargarProv()
+
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])
